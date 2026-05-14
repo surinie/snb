@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>손은눈보다빠르다</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'Pretendard-Medium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Pretendard-Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;}
+		html {scroll-behavior: smooth}
+        body, h1, h2, h3, p, ul, li {margin: 0; padding: 0; font-family: 'Pretendard-Medium';
+        	word-break: keep-all;}
+        html {scroll-behavior: smooth}
+        section{padding: 100px 0px;
+			background-color: white;
+			width: 1300px;
+			margin: auto;
+			position: relative;}
+		body{overflow-x: hidden}
+		.full{width: 100%;
+			position: relative;
+			z-index: 100;
+			overflow: visible !important;}
+		.pic{background-image: url(background.png);
+			background-attachment: fixed;
+			background-size: 100%;
+			max-width: none;
+			width: 100%;
+  			text-align: center;
+  			background-position: center 20px;
+  			padding: 200px 0px;}
+  		.black{background: black;
+  				width: 100%;
+  				padding-top:0px}
+		.sticker-section{position: relative}
+		.sticky-wrapper{position: relative;}
+        nav {position: fixed;
+            width: 100%;
+            height: 65px;
+            background: #DF1C15;
+            z-index: 1000;
+            align-items: center;}
+        nav::after {content: "";
+            position: absolute;
+            left: 0;
+            top: 65px;
+            width: 100%;
+            height: 20px;
+            background-image: radial-gradient(circle at 20px 0, #DF1C15 20px, transparent 21px);
+            background-size: 40px 20px;
+            background-repeat: repeat-x;
+            pointer-events: none;}
+        .with-image{display: flex}
+        .content {width:1000px;
+        	text-align: left;
+        	color: white;
+        	padding-left: 180px;
+        	min-width: 1100px;
+    		flex-shrink: 0;
+    		margin: auto;
+    		z-index: 3}
+    	 .content-center {width:1000px;
+        	color: white;
+        	padding:0px;
+        	min-width: 1100px;
+    		flex-shrink: 0;
+    		margin: auto;
+    		text-align: center;
+    		position: relative}
+        .flex {display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 17px 100px; 
+            box-sizing: border-box;}
+        .logo a {display: flex;
+            align-items: center;}
+        .logo-image {height: 28px;
+            width: auto;
+            display: block;}
+        .menu {display: flex;
+            list-style: none;
+            margin-left: 70px;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+            gap: 20px;}
+        .menu a {display: block;
+            padding: 8px 25px; 
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+            white-space: nowrap;
+            border-radius: 20px;}
+        .menu a:hover {background: white;
+            color: #DF1C15;}
+        .button {margin-left: auto;
+            flex-shrink: 0;
+        	align-items: center;}
+        .button a {display: inline-block; 
+            padding: 10px 25px;
+            text-decoration: none;
+            color: #DF1C15;  
+            background: white;
+            border-radius: 25px;
+            white-space: nowrap;
+            transition: 0.3s;}
+        .button a:hover {
+            background: #f0f0f0}
+        .center{position: relative;text-align: center;min-width: 1100px;}
+        .full-bg-section {width: 100%; 
+		    background-color: #DF1C15;
+		    padding-top: 70px;
+		    padding-bottom: 20px;
+			overflow: visible;
+		position: relative; z-index: 999;}
+        .copy{display: flex;
+        	padding-left: 100px;
+        	justify-content: space-between;
+		    align-items: flex-start;
+			padding-right: 100px}
+        .magic-box{position:relative;
+        	width: 800px;
+        	height: 350px;
+        	margin: 0 auto}
+        .hat, .rabbit, .confetti{position: absolute;
+        	left: 50%;
+        	transform: translateX(-50%);}
+        .hat{top: 210px;
+    		width: 600px;
+    		z-index: 2;
+    		transition: 0.3s}
+    	.rabbit {position: absolute;
+		    left: 70%;
+		    top: 320px;
+		    transform: translateX(-50%);
+		    width: 200px;
+		    z-index: 1;
+		    transition: all 0.2s ease-out;}
+		.magic-box:hover .rabbit{top: 200px;}
+		.Confetti {position: absolute;
+			left: 17%;
+			top: 50px;
+		    width: 550px;
+		    z-index: 3;
+		    opacity: 0;
+		    transition: 0.3s;}
+		.magic-box:hover .Confetti {opacity: 1;}
+    	.logo-big{position: absolute;
+        	width: 200px;
+        	top:110px;
+        	left: 37%}
+        .sticker1 { bottom: 700px; left: 1050px; }
+		.sticker2 { bottom: 590px; left: 1150px; }
+		.sticker3 { bottom: 300px; left: 20px; }
+		.sticker1, .sticker2, .sticker3 {position: absolute;
+		    width: 100px;
+		    z-index: 10;
+		    transition: transform 0.15s ease-out}
+		.sticker1:hover, .sticker2:hover{transform: translate(15px, -15px) rotate(-5deg)}
+		.sticker3:hover {transform: translate(-15px, -15px) rotate(-5deg)}
+		.photo {position: relative;
+			background-color: white;
+		    padding: 100px 0;
+		    text-align: center;
+		    margin: 200px 0;
+			min-width: 800px;}
+		.photo::before {content: "";
+		    position: absolute;
+		    left: 0;
+		    top: -20px; 
+		    width: 100%;
+		    height: 20px;
+		    background-image: radial-gradient(circle at 20px 20px, white 21px,transparent 20px);
+		    background-size: 40px 20px;
+		    background-repeat: repeat-x}
+		.photo::after {content: "";
+		    position: absolute;
+		    left: 0;
+		    bottom: -20px; 
+		    width: 100%;
+		    height: 20px;
+		    background-image: radial-gradient(circle at 20px 0, white 20px, transparent 21px);
+		    background-size: 40px 20px;
+		    background-repeat: repeat-x;}
+		.page{position: sticky;
+		    top: 0;
+		    width: 100%;
+		    height: 100vh;
+		    overflow: hidden;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+			z-index: 1}
+		.bg-container {position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    z-index: -1;}
+		.bg-gif {width: 100%;
+		    height: 100%;
+		    object-fit: cover; 
+		    filter: brightness(0.6)}
+		.gif{text-align: center;
+		    color: white;
+		    z-index: 1;
+			color:white;}
+		.flex-container {
+		    display: flex;    
+		    justify-content: space-between; 
+		    align-items: center;     
+		    width: 100%;                      
+		    box-sizing: border-box;}
+	        p{color: #646464}
+        span{font-family: 'Pretendard-Bold'}
+        .text-group p{color: white;}
+        h1{font-family: Pretendard-bold;
+        	font-size: 48px;
+        	color:#DF1C15;
+        	position: relative;
+        	margin-top:400px}
+        h2{font-family: Pretendard-bold;
+        	font-size: 55px;
+        	color:black;
+        	position: relative}
+        .gif h2{color: white;
+        		font-size: 70px;}
+        .black h2{color: white;}
+        .party {display: block;
+        	margin-left: auto;
+        	width:600px;
+        	padding-top: 100px}
+        .fade-section {height: 200vh;
+    		position: relative;
+    		background: black;
+    		width: 100%}
+    	.sticky-bg {position: sticky;
+		    top: 0;
+		    height: 100vh;
+		    width: 100%;
+		    z-index: 1;}
+		.text-group {
+    		min-width: 600px}
+    	.full::before {content: "";
+		    position: absolute;
+		    left: 0;
+		    top: -20px; 
+		    width: 100%;
+		    height: 20px;
+		    background-image: radial-gradient(circle at 20px 20px, white 20px,transparent 20px);
+		    background-size: 40px 20px;
+		    background-repeat: repeat-x;
+			z-index: 101;}
+		.indicator {
+		    position: fixed;
+		    top: 50%;
+		    left: 30px;
+		    transform: translateY(-50%);
+		    z-index: 2000;
+		    display: flex;
+		    flex-direction: column;
+		    gap: 15px;
+		    animation: show-indicator linear both;
+		    animation-timeline: scroll();
+		    animation-range: 0% 50%; 
+		}
+
+		@keyframes show-indicator {
+		    from { opacity: 0; visibility: hidden; }
+		    to { opacity: 1; visibility: visible; }
+		}
+
+		/* 2. 개별 점(Dot)의 활성화 애니메이션 */
+		.dot {
+		    width: 12px;
+		    height: 12px;
+		    background-color: rgba(255, 255, 255, 0.3);
+		    border-radius: 50%;
+		    transition: transform 0.3s;}
+		.dot1 { animation: dot-active linear both; animation-timeline: scroll(); animation-range: 10% 35%; }
+		.dot2 { animation: dot-active linear both; animation-timeline: scroll(); animation-range: 35% 60%; }
+		.dot3 { animation: dot-active linear both; animation-timeline: scroll(); animation-range: 60% 90%; }
+
+		@keyframes dot-active {
+		    0%, 100% { background-color: rgba(255, 255, 255, 0.3); transform: scale(1); }
+		    50% { background-color: #DF1C15; transform: scale(1.3); } /* 화면 중간쯤 왔을 때 강조 */}
+		.image-row {
+		    display: flex;
+		    justify-content: center; 
+		    gap: 90px;
+		    margin: auto;              
+		    margin-top: 100px;
+		    }
+		.magician-frame {
+		    position: relative;
+		    display: inline-block;
+		    cursor: pointer;}
+
+		.round-img {
+		    display: block;
+		    width: 350px;
+		    height: auto;
+		    transition: transform 0.3s ease;}
+		.overlay {
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    width: 295px; 
+		    height: 370px;
+		    background-color: rgba(0, 0, 0, 0.7);    
+		    border-radius: 50%; 
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		    align-items: center;
+		    color: white;
+		    text-align: center;
+		    padding: 20px;
+		    box-sizing: border-box;
+		    opacity: 0;
+		    transition: all 0.4s ease;
+		    z-index: 10;}
+		.magician-frame:hover .overlay {
+		    opacity: 1;}
+		.dynamic-section {
+			min-height: 800px;
+		    overflow: hidden; 
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+			z-index: 10;
+			margin-top: 150px}
+		.bg-deco {
+		    position: absolute;
+		    pointer-events: none; 
+		    z-index: 1;}
+		.item1 {
+		    top: 100px;
+		    left: 1400px;
+		    width: 490px;
+		    transform: rotate(20deg)}
+		.item2 {
+		    top: 800px;
+		    left: 1500px;
+		    width: 430px;
+		    transform: rotate(-60deg)}
+		.item3 {
+		    top: 600px;
+		    left: -160px;
+		    width: 530px;
+		    transform: rotate(30deg)}
+		.timetable{width: 1000px;
+			display: block;       
+   		 	margin: 0 auto;
+    		padding-top: 80px;
+    		z-index: 70}
+        p{font-size: 24px;
+        	line-height: 1.5}
+        .overlay p{font-size: 15pt;
+        	color: white;}
+        .action-area{display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    margin-top: 50px;
+		    gap: 60px;}
+		.booking-btn {
+		    position: relative; /* 오버레이의 기준점 */
+		    background-color: #e60000; /* 강렬한 빨간색 */
+		    color: white;
+		    padding: 20px 50px;
+		    font-size: 24px;
+		    font-weight: bold;
+		    border: none;
+		    border-radius: 60px;
+		    cursor: pointer;
+		    overflow: hidden; 
+		    transition: background-color 0.3s ease;
+		    outline: none;
+		    box-shadow: none; 
+		    transform: none;}
+		.reveal-text {
+    font-size: 5rem;
+    font-weight: bold;
+    color: white; /* 텍스트는 항상 화이트 */
+    text-align: center;
+    transition: text-shadow 0.1s ease-out; /* 부드러운 변화를 위해 */
+    
+    /* 처음에는 빛이 없는 상태 */
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+}
+
+/* 스크롤에 의해 'active' 클래스가 붙으면 빛이 번짐 */
+.reveal-text.active {
+    /* 하얀 빛이 겹겹이 쌓여 강하게 번지는 효과 */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 30px rgba(255, 255, 255, 0.5),
+        0 0 50px rgba(255, 255, 255, 0.3);
+}
+		.booking-btn::after {
+		    content: '';
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    background-color: rgba(0, 0, 0, 0.2); /* 20% 투명도의 검정 */
+		    opacity: 0; /* 처음에는 안 보이게 */
+		    transition: opacity 0.3s ease;}
+		.text-group{width: 600px;}
+		.falling-item {
+    position: fixed;
+    top: -150px; /* 화면 위에서 시작 */
+    pointer-events: none; /* 클릭 방해 금지 */
+    z-index: 999;
+    user-select: none;
+    animation: fallDown linear forwards;
+    width: 130px !important; height: auto;
+}
+
+@keyframes fallDown {
+    0% {
+        top: -100px;
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        top: 110vh; /* 화면 아래 바깥까지 */
+        transform: translateX(var(--random-x)) rotate(var(--random-rotate));
+        opacity: 0.8;
+    }
+}
+
+/* ✨ 마우스 올렸을 때 (오버레이 등장) */
+.booking-btn:hover::after {
+    opacity: 1;
+}
+        li {list-style-type: none}
+        small{font-size: 15px,; 
+        	color: white;
+        	line-height: 1.5}
+        .card{width: 600px}
+        html{cursor: url('cursor.png'), auto !important;}
+        a:hover, .button a:hover, .menu a:hover {cursor: url('cursor.png'), pointer !important}
+        *:active {cursor: url('cursor.png'), auto !important}
+        a:active, button:active {cursor: url('cursor.png'), pointer !important;}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="flex">
+            <div class="logo">
+                <a href="#"><img src="logo.png" class=logo-image></a>
+            </div>
+            <ul class="menu">
+                <li><a href="#s1">서비스 소개</a></li>
+                <li><a href="#s2">소속 마술사</a></li>
+                <li><a href="#s3">마술 원데이 클래스</a></li>
+            </ul>
+           <div class="button">
+           		<a href="#">지금 마술사 찾기</a>
+           </div>
+    	</div>
+        </div>
+    </nav>
+    <section>
+	    <div class="center">
+	    	<div class="magic-box">
+		    	<img src="hat.png" class=hat>
+		    	<img src="rabbit.png" class="rabbit">
+	    		<img src="confetti.png" class="Confetti">
+	    		<img src="logo-big.png" class="logo-big">
+	    	</div>
+	    	<h1>당신을 위한 마술사 중개소</h1>
+	    </div>
+	</section>
+	<section class="sticker-section" id="s1">
+		<div class="with-image">
+			<img src="card.png" class="card">
+				<div style="padding-top: 340px;padding-left: 40px;">
+			<h2>권태로운 일상에서 벗어나<br>마술의 세계로 떠나보세요</h2>
+			<p style="padding-top: 30px">검증되지 않은 어설픈 손기술은 이제 그만. 클릭 몇 번으로 당신의 파티를 호그와트 연회장으로 만들어 줄 진짜 마법사들을 매칭해 드립니다. 다른 업체와 차별화되는 손놀림으로 여러분을 즐겁게 해드리겠습니다.</p>
+				</div>
+		</div>
+			<img src="sticker.png" class="sticker1">
+			<img src="sticker.png" class="sticker2">
+			<img src="sticker.png" class="sticker3">
+	</section>
+	<section class="pic">
+		<div class=photo>
+			<h2 style="color: #DF1C15;">이럴 때 우리를 찾아주세요</h2>
+			<p style="padding-top: 30px">화려한 파티 뿐 아니라 어색한 상견례,<br>지루한 야유회 등에서도 마술의 힘은 빛을 발합니다!<br>뿐만 아니라 혼자 외로움을 느끼는 고객님들을 위한 <br>개인 플랜도 준비되어 있습니다.
+		</div>
+	</section>
+	<div class="indicator">
+	    <div class="dot dot1"></div>
+	    <div class="dot dot2"></div>
+	    <div class="dot dot3"></div>
+	</div>
+	<div class="sticky-wrapper">
+	<section class="page black">
+		<div class="content flex-container">
+			<div class="text-group">
+				<h2>파티 플랜</h2>
+				<p style="padding-top: 60px">약 1시간 30분<br>MC 동행, 동물 소환, 순간 이동, 절단 마술 등<br>₩980,000 ~</p>
+				<p style="padding-top: 60px; color:#AAAAAA" 
+				>화려한 마술의 정석! 내 파티를 더욱 신나게 만들어줄 프로페셔널 마술사를 섭외하세요! 귀여운 동물 소환에서부터 손에 땀을 쥐게 하는 스펙타클 절단 마술까지. </p>
+			</div>
+			<img src="party.png" class="party">
+		</div>
+	</section>
+	<section class="page">
+	    <div class="bg-container">
+	        <img src="gif1.gif" alt="background" class="bg-gif">
+	    </div>
+	    <div class="gif">
+	        <h2>동물 소환</h2>
+	    </div>
+	</section>
+	<section class="page">
+    <div class="bg-container">
+        <video class="bg-gif" autoplay loop muted playsinline>
+        <source src="gif2.mp4" type="video/mp4">
+    </div>
+    <div class="gif">
+        <h2>순간이동</h2>
+    </div>
+	</section>
+	<section class="page">
+    <div class="bg-container">
+        <img src="gif3.gif" alt="background" class="bg-gif">
+    </div>
+    <div class="gif">
+        <h2>분리 마술</h2>
+	</section>
+	</div>
+	<div class="sticky-wrapper">
+	<section class="page black">
+		<div class="content flex-container">
+			<img src="plan2.png" class="party" style="margin: 0px;">
+			<div class="text-group" style="padding-right: 150px;">
+				<h2>아이스브레이킹 플랜</h2>
+				<p style="padding-top: 60px">약 1시간<br>
+				<br>장미꽃 마술, 넥타이 마술, 마술 장난 등 <br>₩560,000 ~</p>
+				<p style="padding-top: 60px; color:#AAAAAA" 
+				>회사의 야유회나 상견례 등의 자리는 얼어붙을만큼 어색하곤 하죠. 하지만 마술과 함께라면 부드러운 분위기로 바꿀 수 있습니다. 여러 장난스러운 마술로 부장님, 장인어른과 가까워져 보세요. </p>
+			</div>
+			
+		</div>
+	</section>
+	<section class="page">
+	    <div class="bg-container">
+	        <img src="gif4.gif" alt="background" class="bg-gif">
+	    </div>
+	    <div class="gif">
+	        <h2>장미꽃 마술</h2>
+	    </div>
+	</section>
+	<section class="page">
+    <div class="bg-container">
+        <video class="bg-gif" autoplay loop muted playsinline>
+        <source src="gif5.mp4" type="video/mp4">
+    </div>
+    <div class="gif">
+        <h2>넥타이 마술</h2>
+    </div>
+	</section>
+	<section class="page">
+    <div class="bg-container">
+        <video class="bg-gif" autoplay loop muted playsinline>
+        <source src="gif6.mp4" type="video/mp4">
+    </div>
+    <div class="gif">
+        <h2>마술 장난</h2>
+    </section>
+	</div>
+	<div class="sticky-wrapper">
+	<section class="page black">
+		<div class="content flex-container">
+			<div class="text-group">
+				<h2>퍼스널 플랜</h2>
+				<p style="padding-top: 60px">약 1시간<br>개인 맞춤형 마술<br>₩150,000 ~</p>
+				<p style="padding-top: 60px; color:#AAAAAA" 
+				>매일매일이 따분하고 외로우신가요? 당신만을 위한 세상에 단 하나뿐인 마술쇼가 찾아갑니다. 쇼의 구성은 1:1 상담 후 확정됩니다. </p>
+			</div>
+			<img src="plan3.png" class="party" style="width: 700px; padding-right: 80px;">
+		</div>
+	</section>
+	<section class="page shine-section">
+	    <div class="bg-container" style="background-color:black;">
+	        </div>
+	    <div class="gif">
+	        <h2 class="reveal-text">당신이 상상하는 어떤 것이든</h2>
+	    </div>
+	</section>
+	</div>
+    </div>
+	<section class=" full" id="s2">
+		<div class="content-center" style="margin-top: 130px;">
+			<h2 style="font-size: 45px;">대한민국 최고의 마술사들을 소개합니다.</h2>
+			<p style="padding-top: 35px">우리 마술사들은 모두 각 분야에서 알아주는 귀재입니다.<br>지금 당신에게 필요한 마술사는 누구일지 찾아보세요!</p>
+			<div class="image-row">
+				<div class="magician-frame" data-falling-image="a.png">
+			    	<img src="magician1.png" class="round-img">
+			    	<div class="overlay">
+			    		<p><span>표해인</span>
+			    			<br><br>누군가를 닮은 듯한 마술사.동물을 등장시키는 마술이 특기입니다.(정말 마법같은 일이 일어날지도 몰라요!)</p>
+			    	</div>
+			    </div>
+			    <div class="magician-frame" data-falling-image="b.png">
+			    	<img src="magician2.png" class="round-img">
+			    	<div class="overlay">
+			    		<p><span>김찬수 할아버지</span>
+			    			<br><br>마술 경력은 짧지만 인생 경력은 길다!<br> 웃음을 자아내는 소소한 마술이 특기입니다.(가끔 트릭이 보여도 모른척 해주세요!)</p>
+			    	</div>
+			    </div>
+			    <div class="magician-frame"
+			    data-falling-image="c.png">
+			    	<img src="magician3.png" class="round-img">
+			    	<div class="overlay">
+			    		<p><span>고나연</span>
+			    			<br><br>야옹~ 고양이같은 매력을 지녔어요.카드 마술이 특기입니다.(지갑을 잃어버리지 않게 조심하세요!)</p>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+	</section>
+	<section class="full dynamic-section" id="s3" style="background-color: white; overflow: hidden;">
+    <img src="item1.png" class="bg-deco item1">
+    <img src="item2.png" class="bg-deco item2">
+    <img src="item3.png" class="bg-deco item3">
+    <div class="content" style="padding:0px; font-size: 45px;">
+        <h2>내 손으로 청중을 사로잡고 싶다면?</h2>
+        <p style="padding-top: 35px">자기주도적인 성격이시군요! <br>여러분의 성원에 힘입어 마술 원데이 클래스를 준비해 봤습니다.<br> 손눈빠와 함께 일류 마술사로의 첫걸음을 내딛어보세요.</p>
+        <div class="action-area">
+            <img src="timetable.png" class="timetable">
+            <button class="booking-btn">지금 예약하기</button>
+        </div>
+    </div>
+	</section>
+	<section class="full-bg-section" style="margin-top: 130px;">
+			<div class="copy">
+
+				<div class="footer-left">
+					<img src="logo.png" style="width: 70px;"><br><br>
+		            <small>SNB 손은눈보다빠르다<br>
+		            대표자명 배수린<br>사업자번호 123-45-67890<br>주소 서울특별시 노원구 공릉로 232</small>
+				</div>
+				<div class="footer-right" style="padding-top: 110px;">
+					<small>Copyright &copy; 2026 손은눈보다빠르다.</small>
+       			</div>
+			</div>
+	</section>
+    <script>
+	    document.querySelectorAll('.magician-frame').forEach(frame => {
+	        frame.addEventListener('mouseenter', () => {
+	            const imageSrc = frame.getAttribute('data-falling-image'); 
+	            if (!imageSrc) return; // 이미지 설정 안 되어 있으면 무시
+
+	            const count = 9; // 한 번에 쏟아질 개수
+	            for (let i = 0; i < count; i++) {
+	                createFallingItem(imageSrc);
+	            }
+	        });
+	    });
+
+	    function createFallingItem(src) {
+	        const item = document.createElement('img');
+	        item.src = src;
+	        item.classList.add('falling-item');
+
+	        // 랜덤 값들 계산
+	        const startPosX = Math.random() * window.innerWidth;
+	        const duration = Math.random() * 1 + 1; // 1초~2초 사이
+	        const size = Math.random() * 30 + 40;   // 40px~70px 사이
+	        const randomXMove = (Math.random() - 0.5) * 300; // 좌우 흔들림 범위
+	        const randomRotate = Math.random() * 720;        // 회전 각도
+
+	        // CSS에 값 전달
+	        item.style.left = `${startPosX}px`;
+	        item.style.width = `${size}px`;
+	        item.style.animationDuration = `${duration}s`;
+	        
+	        // 중요: CSS 애니메이션에서 사용할 변수들을 직접 주입
+	        item.style.setProperty('--random-x', `${randomXMove}px`);
+	        item.style.setProperty('--random-rotate', `${randomRotate}deg`);
+
+	        document.body.appendChild(item);
+
+	        // 애니메이션 끝나면 삭제
+	        item.addEventListener('animationend', () => {
+	            item.remove();
+	        });
+	    }
+	gsap.registerPlugin(ScrollTrigger);
+
+// 타임라인을 만들어서 순차적으로 실행
+const tl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".shine-section",
+        start: "top top",
+        end: "+=1500", // 고정되는 시간(길이)
+        scrub: 1,      // 스크롤 속도에 맞춰 재생
+        pin: true,     // 화면 고정
+    }
+});
+
+// 1. 빛이 서서히 번짐
+tl.to(".reveal-text", {
+    onStart: () => document.querySelector(".reveal-text").classList.add("active"),
+    duration: 1
+});
+
+// 2. 잠시 유지 (중간 멈춤 효과)
+tl.to({}, { duration: 1 });
+
+// 3. 다시 빛이 사그라듦
+tl.to(".reveal-text", {
+    onStart: () => document.querySelector(".reveal-text").classList.remove("active"),
+    duration: 2
+});
+</script>
+</body>
+</html>
+</body>
+
+</html>
